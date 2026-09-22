@@ -1,0 +1,16 @@
+Use case: illustration-story.
+Asset type: production animation sprite sheet for Codex desktop pet, name 呆猫 (do not write any text in the image).
+Input image is CHARACTER IDENTITY REFERENCE ONLY, NOT an animation or pose to copy.
+Create an actual transparent RGBA PNG spritesheet, exactly 1536 pixels wide x 1872 high, exactly 8 equal columns and 9 equal rows. Each cell is 192x208 px. No gaps, borders, text, labels, shadows on background, checkerboard pattern, or grid lines. Transparent background everywhere outside character. Each character stays fully inside its own cell with padding, same scale and baseline, full body visible with stubby feet. Small flat cartoon outlined sprites, NOT pixel art.
+Identity: faithfully preserve reference's blue-purple cat-ear hood with tall triangular ears, pale cream round face, very large round black eyes with crescent white highlights, tiny black omega-shaped mouth, dark soft thick outlines, blue-purple clothing, cream paws, very short cute body and feet. Oversized head, gentle blank dopey expression. Remove the large sword and straps for this companion adaptation, hands free, NO weapon swinging. No species redesign, no fur face, no human face, no additional characters. Clean flat colors like reference.
+Each row is a DIFFERENT coherent native pet animation, frames progress left to right. Exact row mapping:
+Row 1 (y 0-207): IDLE, first 6 frames breathing and blinking (open eyes, relaxed, half blink, closed blink, reopen, neutral); cells 7-8 duplicate neutral.
+Row 2 (y 208-415): RUN RIGHT, all 8 frames a gentle right-facing run cycle with distinct alternating foot and arm poses, same center.
+Row 3 (y 416-623): RUN LEFT, all 8 frames corresponding left-facing run cycle.
+Row 4 (y 624-831): WAVE, first 4 frames lift paw, wave outward, wave inward, settle; cells 5-8 repeat this cycle.
+Row 5 (y 832-1039): JUMP / SUCCESS, first 5 frames crouch, takeoff, happy raised paws airborne, descend, land; last 3 cells neutral.
+Row 6 (y 1040-1247): ERROR / FAILED, all 8 frames surprised wide eyes, ears tilt, paws to cheeks, small embarrassed slump, recover; gentle humorous expression, no text/icons.
+Row 7 (y 1248-1455): WAITING, first 6 frames patient small side-to-side sway, looking around, head tilts, settle, remaining 2 neutral.
+Row 8 (y 1456-1663): WORKING, first 6 frames focused tiny marching-in-place alternating paws and feet, attentive eyes, remaining 2 neutral.
+Row 9 (y 1664-1871): REVIEW / THINKING, first 6 frames paw to chin, subtle head tilt, curious eyes scanning, tiny nod, settle; remaining 2 neutral.
+Important: 72 aligned individual sprites in exactly 8x9 grid. Each cell full-body identity consistent. Draw genuine different anatomical poses for each state, not rotated/resized copies. The first 6 cells of first row must be a restrained smooth idle loop. Readable and endearing at 96px display size.
