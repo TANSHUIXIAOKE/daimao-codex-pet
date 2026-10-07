@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>沙发上的 Brian · 动画检查</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f0eee9;color:#292731;font:16px system-ui,'Microsoft YaHei',sans-serif}main{max-width:1050px;margin:40px auto;padding:0 24px}h1{font-size:28px;margin-bottom:10px}p{line-height:1.7;color:#67616c}.stage{position:relative;height:330px;border:1px solid #d8d1d8;border-radius:20px;background:linear-gradient(135deg,#ece1ed,#fcfaf5);overflow:hidden}#pet{position:absolute;left:calc(50% - 96px);top:70px;width:192px;height:208px;cursor:grab;touch-action:none}#pet:active{cursor:grabbing}nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}button{font:inherit;border:1px solid #b6a4b8;background:#fffdf9;border-radius:12px;padding:8px 14px;cursor:pointer}button[aria-pressed=true]{background:#766183;color:white}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}.card{border:1px solid #d8d1d8;background:#faf8f3;border-radius:14px;text-align:center;padding:12px}.card canvas{width:192px;height:208px;display:block;margin:auto}.card span{font-size:14px;color:#61576b}.caption{font-size:13px}a{color:#705182}
+</style>
+<main><h1>沙发上的疲惫 Brian</h1><p>拖动沙发检查边缘，点击动作按钮查看各个状态。</p>
+<section class="stage"><canvas id="pet" width="192" height="208"></canvas></section><nav id="controls"></nav>
+<div class="cards" id="cards"></div><p class="caption">AI 制作的非官方爱好者宠物。动画保留坐在紫色沙发上的主体。</p></main>
+<script>
+const labels=['发呆呼吸','向右张望','向左张望','挥手','伸懒腰','惊讶恢复','打哈欠','操作遥控器','疲惫思考'];
+const counts=[6,8,8,4,5,8,6,6,6],durations=[240,150,150,180,240,150,260,160,240];
+const image=new Image();image.src='spritesheet.png';let selected=0,started=performance.now();
+const pet=document.getElementById('pet'),ctx=pet.getContext('2d');const canvases=[];
+labels.forEach((label,row)=>{const button=document.createElement('button');button.textContent=label;button.setAttribute('aria-pressed',row===0);button.onclick=()=>{selected=row;started=performance.now();document.querySelectorAll('nav button').forEach((b,i)=>b.setAttribute('aria-pressed',i===row))};document.getElementById('controls').append(button);const card=document.createElement('div');card.className='card';const canvas=document.createElement('canvas');canvas.width=192;canvas.height=208;const span=document.createElement('span');span.textContent=label;card.append(canvas,span);document.getElementById('cards').append(card);canvases.push(canvas.getContext('2d'))});
+function draw(context,row,t){const frame=Math.floor(t/durations[row])%counts[row];context.clearRect(0,0,192,208);context.drawImage(image,frame*192,row*208,192,208,0,0,192,208)}
+function tick(t){if(image.complete&&image.naturalWidth){draw(ctx,selected,t-started);canvases.forEach((c,row)=>draw(c,row,t))}requestAnimationFrame(tick)}requestAnimationFrame(tick);
+let dragging=null;pet.addEventListener('pointerdown',e=>{pet.setPointerCapture(e.pointerId);dragging={x:e.clientX,y:e.clientY,left:pet.offsetLeft,top:pet.offsetTop};selected=5;started=performance.now()});pet.addEventListener('pointermove',e=>{if(!dragging)return;pet.style.left=Math.min(pet.parentElement.clientWidth-192,Math.max(0,dragging.left+e.clientX-dragging.x))+'px';pet.style.top=Math.min(122,Math.max(0,dragging.top+e.clientY-dragging.y))+'px'});pet.addEventListener('pointerup',()=>{dragging=null;selected=0;started=performance.now()});
+</script></html>
